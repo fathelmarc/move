@@ -76,17 +76,13 @@ void motor_mundur() {
   digitalWrite(trig, LOW);
   duration_us = pulseIn(echo, HIGH);
   distance = 0.017 * duration_us;
+  Serial.print("jarak benda =");Serial.println(distance);
   if (distance < 4 && distance != 0) {
-    delay(500);
-    //Serial.print(distance);
-    motor(-60,-80);
+    Serial.print(distance);
+    motor(-60,-60);
     Serial.print(" motor mundur");
-    delay(800); 
-    motor(0,80);
-    delay(20);
-  }else{
-    PID();
-  }
+    delay(800);
+  }else{PID();}
 }
 
 void PID() {
@@ -104,21 +100,17 @@ void PID() {
   u = Pvalue + Ivalue + Dvalue;
   kiri_kec = Set_point + u;
   kanan_kec = Set_point - u;
-  Serial.print(" u= ");Serial.print(u);
-  int x = digitalRead(u);
+  Serial.print(" u= ");Serial.println(u);
   if (u > 0 && u < 75){
     motor(kiri_kec, kanan_kec); 
-    Serial.println(" kanan");//Serial.print(u);Serial.print(" ");Serial.print(kiri_kec);Serial.print(" ");Serial.println(kanan_kec);
   } else if (u < 0 && u > -75) {
     motor(kiri_kec, kanan_kec);
-    Serial.println(" kiri");//Serial.print(u);Serial.print(" ");Serial.print(kiri_kec);Serial.print(" ");Serial.println(kanan_kec);
   } else if (u < 1 && u > -1) {
     motor(kiri_kec, kanan_kec);
-    Serial.println(" maju");//Serial.print(u);Serial.print(" ");Serial.print(kiri_kec);Serial.print(" ");Serial.println(kanan_kec);
   } else if (u >= 75) {
     motor(kiri_kec, kanan_kec);
-    Serial.println(" hitam");//Serial.print(u);Serial.print(" ");Serial.print(V1);Serial.print(" ");Serial.println(V2);
   }
+  //delay(1);
 }
 void loop() {
   pos = bacasensor();

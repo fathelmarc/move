@@ -80,8 +80,11 @@ void motor_mundur() {
   if (distance < 4 && distance != 0) {
     Serial.print(distance);
     motor(-60,-60);
-    Serial.print(" motor mundur");
-    delay(800);
+    delay(600);
+    motor(0,0);
+    delay(100);
+    motor(0,60);
+    delay(500);
   }else{PID();}
 }
 
@@ -118,7 +121,6 @@ void loop() {
   if (pos == 65533 ){
     motor_mundur();
     motor(0,70);
-  }else{
-    PID();
   }
+  return 0;
 }

@@ -16,11 +16,23 @@ void updateCMPS() {
     if (tmp == '\n') { // Langkah 1
       cmps.buffer[cmps.counter] = 0; // Karakter terminator
       cmps.yaw = atof(strtok(cmps.buffer + 5, ",")); // Langkah 2-4
-      cmps.pitch = atof(strtok(cmps.buffer + 7, ","));
-      cmps.roll = atof(strtok(cmps.buffer + 9, ","));
       cmps.counter = 0;
     }
   }
+}
+void calibrate_IMU(){
+Serial3.begin(115200);
+  Serial.println("calibrating imu");
+  Serial3.write(0xA5);
+  Serial3.write(0x54);
+  delay(200);
+  Serial3.write(0xA5);
+  Serial3.write(0x55);
+  delay(200);
+  Serial3.write(0xA5);
+  Serial3.write(0x53);
+  delay(200);
+  Serial.println("done calibrating");
 }
 void jarak(float target_x, float target_y) {
   

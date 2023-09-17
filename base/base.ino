@@ -12,5 +12,6 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   updateCMPS();
+  jarak(100,0);
 
 }

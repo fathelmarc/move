@@ -6,6 +6,7 @@ float w1, w2, w3, w4, fx, fy;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
+  calibrate_IMU();
 }
 
 void loop() {

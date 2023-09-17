@@ -22,26 +22,19 @@ void updateCMPS() {
     }
   }
 }
-
-
-
-void jarak(float target_x, float target_y, float hadap) {
+void jarak(float target_x, float target_y) {
   
   fx = target_x / Keliling * 360;
   fy = target_y / Keliling * 360;
-  kinematic(fx, fy, hadap);
+  kinematic(fx, fy);
 }
-
-void kinematic(float x, float y, float heading) {
-  w1 = 1 / R * (-sin(toRad( 45)) * x + cos(toRad( 45)) * y + R * heading);
-  w2 = 1 / R * (-sin(toRad(135)) * x + cos(toRad(135)) * y + R * heading);
-  w3 = 1 / R * (-sin(toRad(225)) * x + cos(toRad(225)) * y + R * heading);
-  w4 = 1 / R * (-sin(toRad(315)) * x + cos(toRad(315)) * y + R * heading);
-  Serial.print('!'); Serial.println(w1);
-  Serial.print('@'); Serial.println(w2);
-  Serial.print('#'); Serial.println(w3);
-  Serial.print('$'); Serial.println(w4);
-}
-void posisi() {
-  
+void kinematic(float x, float y) {
+  w1 = 1 / R * (-sin(toRad( 45)) * x + cos(toRad( 45)) * y + R );
+  w2 = 1 / R * (-sin(toRad(135)) * x + cos(toRad(135)) * y + R );
+  w3 = 1 / R * (-sin(toRad(225)) * x + cos(toRad(225)) * y + R );
+  w4 = 1 / R * (-sin(toRad(315)) * x + cos(toRad(315)) * y + R );
+  Serial2.print('!'); Serial2.println(w1);
+  Serial2.print('@'); Serial2.println(w2);
+  Serial2.print('#'); Serial2.println(w3);
+  Serial2.print('$'); Serial2.println(w4);
 }

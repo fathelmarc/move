@@ -14,13 +14,9 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   updateVel();
-  if (base.vel = 236) {
-    digitalWrite(13, 1);
-    digitalWrite(12, 1);
-  } else if (base.vel = 1) {
-    digitalWrite(13, 0);
-    digitalWrite(12, 0);
-  }
+  //PID(base.vel);
+  digitalWrite(12,base.vel);
+  digitalWrite(13,base.vel);
 }
 
 void updateVel() {

@@ -10,10 +10,10 @@ int baca_imu(){
 
 void Kinematic(float x, float y, float arah) {
   //baca_imu();
-  v1 = (-sin(torad(45*hadap)) * y + cos(torad(45)) * x ) / keliling * totdeg + R_robot * arah/R_roda;
-  v2 = (-sin(torad(315*hadap)) * y + cos(torad(315)) * x ) / keliling * totdeg + R_robot * arah/R_roda;
-  v3 = (-sin(torad(225*hadap)) * y + cos(torad(225)) * x ) / keliling * totdeg + R_robot * arah/R_roda;
-  v4 = (-sin(torad(135*hadap)) * y + cos(torad(135*hadap)) * x ) / keliling * totdeg + R_robot * arah/R_roda;
+  v1 = (-sin(torad(45)) * y + cos(torad(45)) * x ) / keliling * totdeg + R_robot * arah/R_roda;
+  v2 = (-sin(torad(315)) * y + cos(torad(315)) * x ) / keliling * totdeg + R_robot * arah/R_roda;
+  v3 = (-sin(torad(225)) * y + cos(torad(225)) * x ) / keliling * totdeg + R_robot * arah/R_roda;
+  v4 = (-sin(torad(135)) * y + cos(torad(135)) * x ) / keliling * totdeg + R_robot * arah/R_roda;
   Serial2.print("!"); Serial2.println(v1);
   Serial2.print("@"); Serial2.println(v2);
   Serial2.print("#"); Serial2.println(v3);

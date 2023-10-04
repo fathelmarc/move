@@ -87,7 +87,24 @@ void lacak() {
   Serial.print("  p4=");
   monitor_koreksi(posi4);
 }
-
+void track_pos(float w1, float w2, float w3, float w4){
+  float motor1 = 360 * (w1/3830);
+  float motor2 = 360 * (w2/3830);
+  float motor3 = 360 * (w3/3830);
+  float motor4 = 360 * (w4/3830);
+  float fy = sin(torad(45)) * motor1 +  sin(torad(315)) * motor2 + sin(torad(225)) * motor3 + sin(torad(135)) * motor4;
+  float fx = cos(torad(45)) * motor1 +  cos(torad(315)) * motor2 + cos(torad(225)) * motor3 + cos(torad(135)) * motor4;
+  float ft = motor1 + motor2 + motor3 + motor4;
+  float hasil_y = fy / keliling * totdeg;
+  float hasil_x = fx / keliling * totdeg;
+  float hasil_t = ft;
+  Serial.print(hasil_x);
+  Serial.print("  ");
+  Serial.print(hasil_y);
+  Serial.print("  ");
+  Serial.print(hasil_t);
+  Serial.print("  ");
+}
 void monitor_koreksi(float nilai_enc) {
   float sudut = 360 * (nilai_enc/ 3830);
   Serial.print(sudut);

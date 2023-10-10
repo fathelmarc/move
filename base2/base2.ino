@@ -10,11 +10,10 @@
 #define R_roda 5
 #define R_robot 16.149
 #define totdeg 360
-
+String f="";
 float torad(float degree) {
   return degree * PI / 180;
 }
-
 float keliling = 2 * PI * R_roda;
 
 volatile int posi1 = 0;
@@ -22,8 +21,8 @@ volatile int posi2 = 0;
 volatile int posi3 = 0;
 volatile int posi4 = 0;
 volatile int pos_imu = 0;
-float v1, v2, v3, v4, prevT, eintegral, ederivative, eprev, hadap;
-
+float prevT, eintegral, ederivative, eprev, hadap, e;
+int v1, v2, v3, v4;
 struct gy25 {
   char buffer[50];
   int counter;
@@ -48,29 +47,42 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(encA3), readEncoder3, RISING);
   attachInterrupt(digitalPinToInterrupt(encA4), readEncoder4, RISING);
 }
-
+int kec = 45;
 void loop() {
   // put your main code here, to run repeatedly:
-  move_with_imu(0, 0, 90);
-  Serial.println();
+  Kinematic(0,100,0);
 }
 
 void move_with_imu(float vx, float vy, float target) {
-
-  float kp = 6;
+  updateCMPS();
+  hadap = cmps.heading;
+  if (hadap > 180) {
+    float selisih = 180 - hadap;
+    hadap = 180 + selisih;
+    hadap *= -1;
+  }
+  float kp = 1;
   float ki = 0;
   float kd = 0;
-  unsigned long currT = micros();
-  float deltaT = ((float)(currT - prevT)) / (1.0e6);
-  prevT = currT;
-  baca_imu();
-  int e = hadap - target;
-  ederivative = (e - eprev) / (deltaT);
-  eintegral += e * deltaT;
 
-  float u = kp * e + ki * eintegral + kd * ederivative;
-  Serial.print(target);
-  Serial.print("  ");
+  long currT = micros();
+  float deltaT = ((float) (currT - prevT)) / ( 1.0e6 );
+  prevT = currT;
+  // error
+  e = hadap - target;
+  if (e > 180 || e < -180){
+    e = target - hadap;
+  }
+  // derivative
+  ederivative = (e - eprev) / (deltaT);
+  //store the previous error
+  eprev = e;
+  // integral
+  eintegral += e * deltaT;
+  // control signal
+  float u = kp * e + kd * ederivative + ki * eintegral;
+  float vt = u;
   Serial.print(hadap);
-  Kinematic(vx, vy, u);
+  Serial.print("  ");
+  Kinematic(vx, vy, vt);
 }
